@@ -1,0 +1,26 @@
+<html>
+    <head>
+        <title>Hansen Family</title>
+    </head>
+    <body>
+        <h1>Welcome to the Hansen Family Website</h1>
+        <h2>Add Contact</h2>
+        <!--Set-up angular to hit the Create Contact Endpoint-->
+        <!--
+            Also make sure that whenever a new contact is made, the 
+            Contacts that are displaying below get updated through the
+            GetAll endpoint on the ContactController
+        -->
+        <form>
+            Name: <input type="text" id="name"/>
+            Address: <input type="text" id="address"/>
+            Email: <input type="email" id="email"/>
+            Phone: <input type="tel" id="phone"/>
+            Other: <input type="textarea" id="other"/>
+        </form>
+        <h2>Contacts:</h2>
+        <!--Maybe put it in a grid that can be filtered-->
+        <!--Make Angular print list of contacts here-->
+        <!--Have Angular pull from the GetAll() Contact Endpoint-->
+    </body>
+</html>
