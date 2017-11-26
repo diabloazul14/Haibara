@@ -1,6 +1,8 @@
 <html ng-app="contactApp">
 
 <head>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <meta content="utf-8" http-equiv="encoding">
     <title>Hansen Family</title>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.6/angular.min.js"></script>
     <script src="/contact.js"></script>
@@ -15,8 +17,8 @@
             Contacts that are displaying below get updated through the
             GetAll endpoint on the ContactController
         -->
-    <div ng-controller="contactController">
-        <form ng-submit="">
+    <div ng-controller="contactController as contactList">
+        <form ng-submit="contactList.AddContact();">
             Name: <input type="text" id="name" /><br/>
             Address: <input type="text" id="address" /><br/>
             Email: <input type="email" id="email" /><br/>
