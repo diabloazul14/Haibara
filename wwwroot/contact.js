@@ -28,8 +28,19 @@ angular.module('contactApp', [])
                           });
                       } else {
                           alert('Unable to save contact, please contact Matthew diabloazul14@gmail.com');
+                          console.log(response);
                       }
                   });
     };
 
+    contactList.GetAllContacts = function() {
+        console.log('getAllContacts Called');
+        $http.get(contactList.url)
+        .then(function(getResponse) {
+            console.log(getResponse);
+          if (getResponse.status === 200) {
+              contactList.contacts = getResponse.data;
+          }
+        });
+    };
 }]);

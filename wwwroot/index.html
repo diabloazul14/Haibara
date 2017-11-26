@@ -11,12 +11,6 @@
 <body>
     <h1>Welcome to the Hansen Family Website</h1>
     <h2>Add Contact</h2>
-    <!--Set-up angular to hit the Create Contact Endpoint-->
-    <!--
-            Also make sure that whenever a new contact is made, the 
-            Contacts that are displaying below get updated through the
-            GetAll endpoint on the ContactController
-        -->
     <div ng-controller="contactController as contactList">
         <form ng-submit="contactList.AddContact();">
             Name: <input type="text" id="name" /><br/>
@@ -27,6 +21,13 @@
             <input type="submit" value="Add" />
         </form>
         <h2>Contacts:</h2>
+        <div ng-repeat="contact in contactList.contacts" ng-init="contactList.GetAllContacts();">
+            <h3>{{contact.name}}</h3>
+            <p>Address: {{contact.address}}</p>
+            <p>Email: {{contact.email}}</p>
+            <p>Phone: {{contact.phone}}</p>
+            <p>Other: {{contact.other}}</p>
+        </div>
         <!--Maybe put it in a grid that can be filtered-->
         <!--Make Angular print list of contacts here-->
         <!--Have Angular pull from the GetAll() Contact Endpoint-->
