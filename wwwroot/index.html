@@ -1,0 +1,34 @@
+<html ng-app="contactApp">
+
+<head>
+    <title>Hansen Family</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.6/angular.min.js"></script>
+    <script src="/contact.js"></script>
+</head>
+
+<body>
+    <h1>Welcome to the Hansen Family Website</h1>
+    <h2>Add Contact</h2>
+    <!--Set-up angular to hit the Create Contact Endpoint-->
+    <!--
+            Also make sure that whenever a new contact is made, the 
+            Contacts that are displaying below get updated through the
+            GetAll endpoint on the ContactController
+        -->
+    <div ng-controller="contactController">
+        <form ng-submit="">
+            Name: <input type="text" id="name" /><br/>
+            Address: <input type="text" id="address" /><br/>
+            Email: <input type="email" id="email" /><br/>
+            Phone: <input type="tel" id="phone" /><br/>
+            Other: <input type="textarea" id="other" /><br/>
+            <input type="submit" value="Add" />
+        </form>
+        <h2>Contacts:</h2>
+        <!--Maybe put it in a grid that can be filtered-->
+        <!--Make Angular print list of contacts here-->
+        <!--Have Angular pull from the GetAll() Contact Endpoint-->
+    </div>
+</body>
+
+</html>
