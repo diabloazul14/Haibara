@@ -22,7 +22,7 @@ angular.module('contactApp', [])
                               .then(function(getResponse) {
                                   console.log(getResponse);
                                 if (getResponse.status === 200) {
-                                    alert('Contact Saved')
+                                    //alert('Contact Saved')
                                     contactList.contacts = getResponse.data;
                                 }
                           });
@@ -43,4 +43,6 @@ angular.module('contactApp', [])
           }
         });
     };
+
+    contactList.GetAllContacts();
 }]);

@@ -21,16 +21,13 @@
             <input type="submit" value="Add" />
         </form>
         <h2>Contacts:</h2>
-        <div ng-repeat="contact in contactList.contacts" ng-init="contactList.GetAllContacts();">
+        <div ng-repeat="contact in contactList.contacts">
             <h3>{{contact.name}}</h3>
             <p>Address: {{contact.address}}</p>
             <p>Email: {{contact.email}}</p>
             <p>Phone: {{contact.phone}}</p>
             <p>Other: {{contact.other}}</p>
         </div>
-        <!--Maybe put it in a grid that can be filtered-->
-        <!--Make Angular print list of contacts here-->
-        <!--Have Angular pull from the GetAll() Contact Endpoint-->
     </div>
 </body>
 
