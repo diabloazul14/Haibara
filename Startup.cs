@@ -25,7 +25,7 @@ namespace haibara
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<HaibaraContext>(opt => opt.UseInMemoryDatabase("Contact"));
+            services.AddDbContext<HaibaraContext>(opt => opt.UseSqlite("Data Source=contacts.db"));
             services.AddMvc();
         }
 

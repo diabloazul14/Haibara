@@ -24,6 +24,11 @@ angular.module('contactApp', [])
                                 if (getResponse.status === 200) {
                                     //alert('Contact Saved')
                                     contactList.contacts = getResponse.data;
+                                    document.getElementById('name').value = "";
+                                    document.getElementById('address').value = "";
+                                    document.getElementById('email').value = "";
+                                    document.getElementById('phone').value = "";
+                                    document.getElementById('other').value = "";
                                 }
                           });
                       } else {
