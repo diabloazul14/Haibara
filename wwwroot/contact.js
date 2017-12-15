@@ -22,7 +22,7 @@ angular.module('contactApp', [])
                               .then(function(getResponse) {
                                   console.log(getResponse);
                                 if (getResponse.status === 200) {
-                                    alert('Contact Saved')
+                                    //alert('Contact Saved')
                                     contactList.contacts = getResponse.data;
                                 }
                           });
@@ -30,7 +30,7 @@ angular.module('contactApp', [])
                           alert('Unable to save contact, please contact Matthew diabloazul14@gmail.com');
                           console.log(response);
                       }
-                  });
+                  });        
     };
 
     contactList.GetAllContacts = function() {
@@ -42,5 +42,13 @@ angular.module('contactApp', [])
               contactList.contacts = getResponse.data;
           }
         });
+    };
+
+    contactList.ClearAddContactFields = function() {
+        document.getElementById('name').value = '';
+        document.getElementById('address').value = '';
+        document.getElementById('email').value = '';
+        document.getElementById('phone').value = '';
+        document.getElementById('other').value = '';
     };
 }]);

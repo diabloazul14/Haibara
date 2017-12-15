@@ -12,7 +12,7 @@
     <h1>Welcome to the Hansen Family Website</h1>
     <h2>Add Contact</h2>
     <div ng-controller="contactController as contactList">
-        <form ng-submit="contactList.AddContact();">
+        <form ng-submit="contactList.AddContact();contactList.ClearAddContactFields();">
             Name: <input type="text" id="name" /><br/>
             Address: <input type="text" id="address" /><br/>
             Email: <input type="email" id="email" /><br/>
@@ -28,9 +28,6 @@
             <p>Phone: {{contact.phone}}</p>
             <p>Other: {{contact.other}}</p>
         </div>
-        <!--Maybe put it in a grid that can be filtered-->
-        <!--Make Angular print list of contacts here-->
-        <!--Have Angular pull from the GetAll() Contact Endpoint-->
     </div>
 </body>
 
