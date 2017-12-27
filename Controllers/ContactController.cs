@@ -2,9 +2,12 @@ using Microsoft.AspNetCore.Mvc;
 using haibara.Models;
 using System.Linq;
 using System.Collections.Generic;
+using System;
+using Microsoft.AspNetCore.Authorization;
 
 namespace haibara.Controllers
 {
+    [Authorize(AuthenticationSchemes = "Bearer")]
     [Route("api/[controller]")]
     public class ContactController
     {
@@ -12,20 +15,7 @@ namespace haibara.Controllers
 
         public ContactController(HaibaraContext context)
         {
-            _context = context;
-
-            if (_context.Contacts.Count() == 0)
-            {
-                _context.Contacts.Add(new Contact
-                {
-                    Name = "Matthew",
-                    Address = "237 Backs Ln. Apt. D",
-                    Email = "diabloazul14@gmail.com",
-                    Phone = "7142225074",
-                    Other = "Is a Software Engineer"
-                });
-                _context.SaveChanges();
-            }
+            _context = context;           
         }
 
         //Returns All Contacts
@@ -96,7 +86,7 @@ namespace haibara.Controllers
 
             _context.Contacts.Remove(dbContact);
             _context.SaveChanges();
-
+            Console.WriteLine("No Reason at all");
             return new NoContentResult();            
         }
 
