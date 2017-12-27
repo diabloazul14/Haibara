@@ -8,25 +8,46 @@
     <script src="/contact.js"></script>
 </head>
 
-<body>
+<body ng-controller="contactController as contactList">
     <h1>Welcome to the Hansen Family Website</h1>
-    <h2>Add Contact</h2>
-    <div ng-controller="contactController as contactList">
-        <form ng-submit="contactList.AddContact();contactList.ClearAddContactFields();">
-            Name: <input type="text" id="name" /><br/>
-            Address: <input type="text" id="address" /><br/>
-            Email: <input type="email" id="email" /><br/>
-            Phone: <input type="tel" id="phone" /><br/>
-            Other: <input type="textarea" id="other" /><br/>
-            <input type="submit" value="Add" />
+
+    <div id="loginPage" ng-hide="contactList.showMainPage">
+        <form ng-submit="contactList.retrieveToken();">
+            <p>Username:
+                <input type="username" ng-model="contactList.username" required/>
+            </p>
+            <p>Password:
+                <input type="password" ng-model="contactList.password" required/>
+            </p>
+            <input type="submit" value="Login"/>
         </form>
-        <h2>Contacts:</h2>
-        <div ng-repeat="contact in contactList.contacts">
-            <h3>{{contact.name}}</h3>
-            <p>Address: {{contact.address}}</p>
-            <p>Email: {{contact.email}}</p>
-            <p>Phone: {{contact.phone}}</p>
-            <p>Other: {{contact.other}}</p>
+    </div>
+
+    <div id="mainPart" ng-hide="!contactList.showMainPage">
+        <h2>Add Contact</h2>
+        <div>
+            <form ng-submit="contactList.AddContact();contactList.ClearAddContactFields();">
+                Name:
+                <input type="text" id="name" required/>
+                <br/> Address:
+                <input type="text" id="address" />
+                <br/> Email:
+                <input type="email" id="email" />
+                <br/> Phone:
+                <input type="tel" id="phone" />
+                <br/> Other:
+                <input type="textarea" id="other" />
+                <br/>
+                <input type="submit" value="Add" />
+            </form>
+            <h2>Contacts:</h2>
+            <div ng-repeat="contact in contactList.contacts">
+                <h3>{{contact.name}}</h3>
+                <p>Address: {{contact.address}}</p>
+                <p>Email: {{contact.email}}</p>
+                <p>Phone: {{contact.phone}}</p>
+                <p>Other: {{contact.other}}</p>
+            </div>
         </div>
     </div>
 </body>

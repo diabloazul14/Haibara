@@ -12541,11 +12541,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "d:\\Projects\\haibara\\haibara.csproj",
+      "projectUniqueName": "D:\\Projects\\haibara\\haibara.csproj",
       "projectName": "haibara",
-      "projectPath": "d:\\Projects\\haibara\\haibara.csproj",
+      "projectPath": "D:\\Projects\\haibara\\haibara.csproj",
       "packagesPath": "C:\\Users\\MKHan\\.nuget\\packages\\",
-      "outputPath": "d:\\Projects\\haibara\\obj\\",
+      "outputPath": "D:\\Projects\\haibara\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
