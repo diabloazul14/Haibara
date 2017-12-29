@@ -3,6 +3,7 @@ angular.module('contactApp', [])
         var contactList = this;
         contactList.url = 'http://localhost:5000/api/Contact';
         contactList.contacts = [];
+        contactList.searchedContacts = [];
         contactList.JWT = null;
         contactList.showMainPage = false;
 
@@ -53,6 +54,7 @@ angular.module('contactApp', [])
                                 }
                             });
                     } else {
+                        contactList.showMainPage = false;
                         alert('Unable to save contact, please contact Matthew diabloazul14@gmail.com');
                         console.log(response);
                     }
@@ -67,6 +69,10 @@ angular.module('contactApp', [])
                     console.log(getResponse);
                     if (getResponse.status === 200) {
                         contactList.contacts = getResponse.data;
+                        contactList.searchedContacts = contactList.contacts;
+                    } else {
+                        contactList.showMainPage = false;
+                        alert("Couldn't retrieve Contacts, please contact Site Admin.");
                     }
                 });
         };
@@ -78,5 +84,96 @@ angular.module('contactApp', [])
             document.getElementById('phone').value = '';
             document.getElementById('other').value = '';
         };
-        
+
+        contactList.isInList = function(element, list) {
+            var isInList = false;
+            list.forEach(function (elementInList) {
+                if (element === elementInList) {
+                    isInList = true;
+                }
+            });
+            return isInList;
+        };
+
+        contactList.union = function(list1, list2) {
+            var tempList = [];
+            list1.forEach(function (element1) {
+                list2.forEach(function (element2) {
+                    if (element1 === element2 && !contactList.isInList(element1, tempList)) {
+                        tempList.push(element1);
+                    }
+                });
+            });
+            return tempList;
+        }
+
+        contactList.search = function () {
+            var nameList = contactList.SearchName();
+            var addressList = contactList.SearchAddress();
+            var phoneList = contactList.SearchTelephone();
+            var emailList = contactList.SearchEmail();
+            var otherList = contactList.SearchOther();
+            var nameAddressUnion = contactList.union(nameList, addressList);
+            var phoneEmailUnion = contactList.union(phoneList, emailList);
+            var nameAddressOtherUnion = contactList.union(union1, otherList);
+            var unions = contactList.union(union3, union2);
+            contactList.searchedContacts = unions;
+        };
+
+        contactList.SearchName = function () {
+            var tempListOfContacts = [];
+            contactList.contacts.forEach(element => {
+                if (element.name.includes(contactList.nameSearch)) {
+                    tempListOfContacts.push(element);
+                }
+            });
+
+            return tempListOfContacts;
+        };
+
+        contactList.SearchAddress = function () {
+            var tempListOfContacts = [];
+            contactList.contacts.forEach(element => {
+                if (element.address.includes(contactList.nameSearch)) {
+                    tempListOfContacts.push(element);
+                }
+            });
+
+            return tempListOfContacts;
+        };
+
+        contactList.SearchEmail = function () {
+            var tempListOfContacts = [];
+            contactList.contacts.forEach(element => {
+                if (element.email.includes(contactList.nameSearch)) {
+                    tempListOfContacts.push(element);
+                }
+            });
+
+            return tempListOfContacts;
+        };
+
+        contactList.SearchTelephone = function () {
+            var tempListOfContacts = [];
+            contactList.contacts.forEach(element => {
+                if (element.phone.includes(contactList.nameSearch)) {
+                    tempListOfContacts.push(element);
+                }
+            });
+
+            return tempListOfContacts;
+        };
+
+        contactList.SearchOther = function () {
+            var tempListOfContacts = [];
+            contactList.contacts.forEach(element => {
+                if (element.other.includes(contactList.nameSearch)) {
+                    tempListOfContacts.push(element);
+                }
+            });
+
+            return tempListOfContacts;
+        };
+
+
     }]);

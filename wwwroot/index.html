@@ -5,7 +5,9 @@
     <meta content="utf-8" http-equiv="encoding">
     <title>Hansen Family</title>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.6/angular.min.js"></script>
+    <script src="/underscore.js"
     <script src="/contact.js"></script>
+    <link rel="stylesheet" type="text/css" href="/bulma.css"></link>
 </head>
 
 <body ng-controller="contactController as contactList">
@@ -14,12 +16,12 @@
     <div id="loginPage" ng-hide="contactList.showMainPage">
         <form ng-submit="contactList.retrieveToken();">
             <p>Username:
-                <input type="username" ng-model="contactList.username" required/>
+                <input type="username" ng-model="contactList.username" class="input is-rounded is-mobile" required/>
             </p>
             <p>Password:
-                <input type="password" ng-model="contactList.password" required/>
+                <input type="password" ng-model="contactList.password" class="input is-rounded is-mobile" required/>
             </p>
-            <input type="submit" value="Login"/>
+            <input type="submit" value="Login" class="button is-primary is-mobile" />
         </form>
     </div>
 
@@ -28,25 +30,74 @@
         <div>
             <form ng-submit="contactList.AddContact();contactList.ClearAddContactFields();">
                 Name:
-                <input type="text" id="name" required/>
+                <input type="text" id="name" class="input is-rounded is-mobile" required/>
                 <br/> Address:
-                <input type="text" id="address" />
+                <input type="text" id="address" class="input is-rounded is-mobile" />
                 <br/> Email:
-                <input type="email" id="email" />
+                <input type="email" id="email" class="input is-rounded is-mobile" />
                 <br/> Phone:
-                <input type="tel" id="phone" />
+                <input type="tel" id="phone" class="input is-rounded is-mobile" />
                 <br/> Other:
-                <input type="textarea" id="other" />
+                <input type="textarea" id="other" class="textarea  is-rounded is-mobile" />
                 <br/>
-                <input type="submit" value="Add" />
+                <input type="submit" value="Add" class="button is-primary is-mobile" />
             </form>
             <h2>Contacts:</h2>
-            <div ng-repeat="contact in contactList.contacts">
-                <h3>{{contact.name}}</h3>
-                <p>Address: {{contact.address}}</p>
-                <p>Email: {{contact.email}}</p>
-                <p>Phone: {{contact.phone}}</p>
-                <p>Other: {{contact.other}}</p>
+            <div class="columns">
+                <div class="column">
+                    <p>Names</p>
+                </div>
+                <div class="column">
+                    <p>Addresses</p>
+                </div>
+                <div class="column">
+                    <p>Emails</p>
+                </div>
+                <div class="column">
+                    <p>Phones</p>
+                </div>
+                <div class="column">
+                    <p>Other Information</p>
+                </div>
+            </div>
+            <div class="columns">
+                <div class="column">
+                    <input type="text" class="input is-rounded is-mobile" ng-model="contactList.nameSearch" ng-change="contactList.search();"
+                    />
+                </div>
+                <div class="column">
+                    <input type="text" class="input is-rounded is-mobile" ng-model="contactList.nameSearch" ng-change="contactList.search();"
+                    />
+                </div>
+                <div class="column">
+                    <input type="text" class="input is-rounded is-mobile" ng-model="contactList.nameSearch" ng-change="contactList.search();"
+                    />
+                </div>
+                <div class="column">
+                    <input type="text" class="input is-rounded is-mobile" ng-model="contactList.nameSearch" ng-change="contactList.search();"
+                    />
+                </div>
+                <div class="column">
+                    <input type="text" class="input is-rounded is-mobile" ng-model="contactList.nameSearch" ng-change="contactList.search();"
+                    />
+                </div>
+            </div>
+            <div ng-repeat="contact in contactList.searchedContacts" class="columns is-mobile">
+                <div class="column">
+                    <p class="is-info">{{contact.name}}</p>
+                </div>
+                <div class="column">
+                    <p>{{contact.address}}</p>
+                </div>
+                <div class="column">
+                    <p>{{contact.email}}</p>
+                </div>
+                <div class="column">
+                    <p>{{contact.phone}}</p>
+                </div>
+                <div class="column">
+                    <p>{{contact.other}}</p>
+                </div>
             </div>
         </div>
     </div>
