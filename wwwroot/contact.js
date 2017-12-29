@@ -115,8 +115,8 @@ angular.module('contactApp', [])
             var otherList = contactList.SearchOther();
             var nameAddressUnion = contactList.union(nameList, addressList);
             var phoneEmailUnion = contactList.union(phoneList, emailList);
-            var nameAddressOtherUnion = contactList.union(union1, otherList);
-            var unions = contactList.union(union3, union2);
+            var nameAddressOtherUnion = contactList.union(nameAddressUnion, otherList);
+            var unions = contactList.union(nameAddressOtherUnion, phoneEmailUnion);
             contactList.searchedContacts = unions;
         };
 
@@ -134,7 +134,7 @@ angular.module('contactApp', [])
         contactList.SearchAddress = function () {
             var tempListOfContacts = [];
             contactList.contacts.forEach(element => {
-                if (element.address.includes(contactList.nameSearch)) {
+                if (element.address.includes(contactList.addressSearch)) {
                     tempListOfContacts.push(element);
                 }
             });
@@ -145,7 +145,7 @@ angular.module('contactApp', [])
         contactList.SearchEmail = function () {
             var tempListOfContacts = [];
             contactList.contacts.forEach(element => {
-                if (element.email.includes(contactList.nameSearch)) {
+                if (element.email.includes(contactList.emailSearch)) {
                     tempListOfContacts.push(element);
                 }
             });
@@ -156,7 +156,7 @@ angular.module('contactApp', [])
         contactList.SearchTelephone = function () {
             var tempListOfContacts = [];
             contactList.contacts.forEach(element => {
-                if (element.phone.includes(contactList.nameSearch)) {
+                if (element.phone.includes(contactList.phoneSearch)) {
                     tempListOfContacts.push(element);
                 }
             });
@@ -167,7 +167,7 @@ angular.module('contactApp', [])
         contactList.SearchOther = function () {
             var tempListOfContacts = [];
             contactList.contacts.forEach(element => {
-                if (element.other.includes(contactList.nameSearch)) {
+                if (element.other.includes(contactList.otherSearch)) {
                     tempListOfContacts.push(element);
                 }
             });
