@@ -85,7 +85,7 @@ angular.module('contactApp', [])
             document.getElementById('other').value = '';
         };
 
-        contactList.isInList = function(element, list) {
+        contactList.isInList = function (element, list) {
             var isInList = false;
             list.forEach(function (elementInList) {
                 if (element === elementInList) {
@@ -95,16 +95,25 @@ angular.module('contactApp', [])
             return isInList;
         };
 
-        contactList.union = function(list1, list2) {
+        contactList.union = function (list1, list2) {
             var tempList = [];
-            list1.forEach(function (element1) {
-                list2.forEach(function (element2) {
-                    if (element1 === element2 && !contactList.isInList(element1, tempList)) {
-                        tempList.push(element1);
-                    }
+            if (list1 === [] && list2 === []) {
+                return tempList;
+            } else if (list1 === [] && list2 !== []) {
+                return list2;
+            } else if (list1 !== [] && list2 === []) {
+                return list1;
+            } else {
+
+                list1.forEach(function (element1) {
+                    list2.forEach(function (element2) {
+                        if (element1 === element2 && !contactList.isInList(element1, tempList)) {
+                            tempList.push(element1);
+                        }
+                    });
                 });
-            });
-            return tempList;
+                return tempList;
+            }
         }
 
         contactList.search = function () {
@@ -117,7 +126,11 @@ angular.module('contactApp', [])
             var phoneEmailUnion = contactList.union(phoneList, emailList);
             var nameAddressOtherUnion = contactList.union(nameAddressUnion, otherList);
             var unions = contactList.union(nameAddressOtherUnion, phoneEmailUnion);
-            contactList.searchedContacts = unions;
+            if (unions.length !== 0) {
+                contactList.searchedContacts = unions;
+            } else {
+                contactList.searchedContacts = contactList.contacts;
+            }
         };
 
         contactList.SearchName = function () {
