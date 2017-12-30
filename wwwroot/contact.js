@@ -44,13 +44,13 @@ angular.module('contactApp', [])
                             .then(function (getResponse) {
                                 console.log(getResponse);
                                 if (getResponse.status === 200) {
-                                    //alert('Contact Saved')
                                     contactList.contacts = getResponse.data;
+                                    contactList.searchedContacts.push(newContact);
                                     document.getElementById('name').value = "";
                                     document.getElementById('address').value = "";
                                     document.getElementById('email').value = "";
                                     document.getElementById('phone').value = "";
-                                    document.getElementById('other').value = "";
+                                    document.getElementById('other').value = "";                                    
                                 }
                             });
                     } else {
@@ -85,34 +85,44 @@ angular.module('contactApp', [])
             document.getElementById('other').value = '';
         };
 
-        contactList.isInList = function (element, list) {
-            var isInList = false;
-            list.forEach(function (elementInList) {
-                if (element === elementInList) {
-                    isInList = true;
-                }
-            });
-            return isInList;
+        contactList.removeDuplicatesAtIndexes = function (list, listOfIndexes) {
+            var modifiedList = list;
+            while(list.length > 1) {
+                modifiedList.splice(-1, 1);
+            }
+            return modifiedList;
         };
 
-        contactList.union = function (list1, list2) {
-            var tempList = [];
-            if (list1 === [] && list2 === []) {
-                return tempList;
-            } else if (list1 === [] && list2 !== []) {
+        contactList.removeDuplicates = function(list) {
+            var tempList = list;
+            list.forEach(function (element) {
+                var indexesOfElementInList = [];
+                var index = 0;
+                list.forEach(function (innerElement) {                    
+                    if (innerElement === element) {
+                        indexesOfElementInList.push(index)
+                    }
+                    index += 1;
+                });
+                if (indexesOfElementInList.length > 1) {
+                    tempList = contactList.removeDuplicatesAtIndexes(tempList, indexesOfElementInList);
+                }
+            });
+            return tempList;
+        };
+
+
+        contactList.combine = function (list1, list2) {
+            if (list1.length === 0 && list2.length ===0) {
+                return [];
+            } else if (list1.length === 0 && list2.length !== 0) {
                 return list2;
-            } else if (list1 !== [] && list2 === []) {
+            } else if (list1.length !== 1 && list2.length === 0) {
                 return list1;
             } else {
-
-                list1.forEach(function (element1) {
-                    list2.forEach(function (element2) {
-                        if (element1 === element2 && !contactList.isInList(element1, tempList)) {
-                            tempList.push(element1);
-                        }
-                    });
-                });
-                return tempList;
+                var tempList = list1.concat(list2);
+                tempList = contactList.removeDuplicates(tempList);
+                return tempList;    
             }
         }
 
@@ -122,12 +132,12 @@ angular.module('contactApp', [])
             var phoneList = contactList.SearchTelephone();
             var emailList = contactList.SearchEmail();
             var otherList = contactList.SearchOther();
-            var nameAddressUnion = contactList.union(nameList, addressList);
-            var phoneEmailUnion = contactList.union(phoneList, emailList);
-            var nameAddressOtherUnion = contactList.union(nameAddressUnion, otherList);
-            var unions = contactList.union(nameAddressOtherUnion, phoneEmailUnion);
-            if (unions.length !== 0) {
-                contactList.searchedContacts = unions;
+            var nameAddresscombine = contactList.combine(nameList, addressList);
+            var phoneEmailcombine = contactList.combine(phoneList, emailList);
+            var nameAddressOthercombine = contactList.combine(nameAddresscombine, otherList);
+            var combines = contactList.combine(nameAddressOthercombine, phoneEmailcombine);
+            if (combines.length !== 0) {
+                contactList.searchedContacts = combines;
             } else {
                 contactList.searchedContacts = contactList.contacts;
             }

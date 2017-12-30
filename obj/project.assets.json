@@ -12535,28 +12535,30 @@
     ]
   },
   "packageFolders": {
-    "/home/matthew/.nuget/packages/": {},
-    "/usr/share/dotnet/sdk/NuGetFallbackFolder": {}
+    "C:\\Users\\MKHan\\.nuget\\packages\\": {},
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/matthew/Projects/Haibara/haibara.csproj",
+      "projectUniqueName": "d:\\Projects\\Haibara\\haibara.csproj",
       "projectName": "haibara",
-      "projectPath": "/home/matthew/Projects/Haibara/haibara.csproj",
-      "packagesPath": "/home/matthew/.nuget/packages/",
-      "outputPath": "/home/matthew/Projects/Haibara/obj/",
+      "projectPath": "d:\\Projects\\Haibara\\haibara.csproj",
+      "packagesPath": "C:\\Users\\MKHan\\.nuget\\packages\\",
+      "outputPath": "d:\\Projects\\Haibara\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "/usr/share/dotnet/sdk/NuGetFallbackFolder"
+        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "/home/matthew/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\MKHan\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp2.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
