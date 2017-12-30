@@ -85,43 +85,37 @@ angular.module('contactApp', [])
             document.getElementById('other').value = '';
         };
 
-        contactList.removeDuplicatesAtIndexes = function (list, listOfIndexes) {
-            var modifiedList = list;
-            while(list.length > 1) {
-                modifiedList.splice(-1, 1);
-            }
-            return modifiedList;
+        contactList.removeDuplicates = function(list) {
+            var tempList = Array.from(new Set(list));
+            return tempList;
         };
 
-        contactList.removeDuplicates = function(list) {
-            var tempList = list;
-            list.forEach(function (element) {
-                var indexesOfElementInList = [];
-                var index = 0;
-                list.forEach(function (innerElement) {                    
-                    if (innerElement === element) {
-                        indexesOfElementInList.push(index)
+        contactList.combineDuplicates = function(list1, list2) {
+            var tempList = [];
+            list1.forEach(function (element) {
+                list2.forEach(function (innerElement) {
+                    if (element.name === innerElement.name
+                        && element.address === innerElement.address
+                        && element.email === innerElement.email
+                        && element.phone === innerElement.phone
+                        && element.other === innerElement.other) {
+                        tempList.push(element);
                     }
-                    index += 1;
                 });
-                if (indexesOfElementInList.length > 1) {
-                    tempList = contactList.removeDuplicatesAtIndexes(tempList, indexesOfElementInList);
-                }
             });
             return tempList;
         };
 
 
         contactList.combine = function (list1, list2) {
-            if (list1.length === 0 && list2.length ===0) {
+            if (list1.length === 0 && list2.length === 0) {
                 return [];
             } else if (list1.length === 0 && list2.length !== 0) {
                 return list2;
-            } else if (list1.length !== 1 && list2.length === 0) {
+            } else if (list1.length !== 0 && list2.length === 0) {
                 return list1;
-            } else {
-                var tempList = list1.concat(list2);
-                tempList = contactList.removeDuplicates(tempList);
+            } else {                
+                var tempList = contactList.combineDuplicates(list1, list2);
                 return tempList;    
             }
         }

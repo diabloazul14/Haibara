@@ -39,7 +39,7 @@ namespace haibara.Controllers
                     issuer: "localhost:5000",
                     audience: "localhost:5000",
                     claims: claims,
-                    expires: DateTime.Now.AddHours(2),
+                    expires: DateTime.Now.AddHours(12),
                     signingCredentials: cred
                 );
 
