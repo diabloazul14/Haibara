@@ -192,5 +192,24 @@ angular.module('contactApp', [])
             return tempListOfContacts;
         };
 
+        contactList.toggleAddContactModal = function() {
+            var element = document.getElementById('addContactModal');
+            var elementClassAttribute = element.getAttribute('class');
+            if (elementClassAttribute === 'modal') {
+                element.setAttribute('class', 'modal is-active');
+            } else {
+                element.setAttribute('class', 'modal');
+            }
+        };
+
+        contactList.toggleAboutModal = function() {
+            var element = document.getElementById('aboutModal');
+            var elementClassAttribute = element.getAttribute('class');
+            if (elementClassAttribute === 'modal') {
+                element.setAttribute('class', 'modal is-active');
+            } else {
+                element.setAttribute('class', 'modal');
+            }
+        };
 
     }]);
