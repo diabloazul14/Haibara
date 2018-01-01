@@ -202,18 +202,38 @@ angular.module('contactApp', [])
                 element.setAttribute('class', 'modal');
             }
         };
-
-        contactList.editUser = function(contact) {
+        
+        contactList.contactBeingEditedId = null;
+        
+        contactList.editUser = function(contact) {            
             contactList.updateName = contact.name;
             contactList.updateAddress = contact.address;
             contactList.updateEmail = contact.email;
             contactList.updatePhone = contact.phone;
             contactList.updateOther = contact.other;
             contactList.toggleModal('updateContactModal');
+            contactList.contactBeingEditedId = contact.id;
         };
 
+
         contactList.saveEditedUser = function() {
-            
-        }
+            var editedContact = {
+                'name':    contactList.updateName,
+                'address': contactList.updateAddress,
+                'email':   contactList.updateEmail,
+                'phone':   contactList.updatePhone,
+                'other':   contactList.updateOther
+            };
+            $http.defaults.headers.common.Authorization = "Bearer " + contactList.JWT;
+            $http.put(contactList.url + "/" + contactList.contactBeingEditedId, editedContact)
+                .then(function (response) {
+                    if (response.status === 204) {
+                        contactList.GetAllContacts();
+                    } else {
+                        alert("User couldn't be edited, please contact site admin.");
+                    }
+                    contactList.contactBeingEditedId = null;
+                });
+        };
 
     }]);

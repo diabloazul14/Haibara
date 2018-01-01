@@ -69,7 +69,6 @@
                                 private personal information. Lol :)</li>
                             <li>So if you want your own login credentials,</li>
                             <li>or if you notice anything wrong with the site,</li>
-                            <li>or if you need to edit a user,</li>
                             <li>please contact Matthew Hansen at diabloazul14@gmail.com</li>
                         </ol>
                     </div>
@@ -139,7 +138,7 @@
                     </div>
                 </section>
                 <footer class="modal-card-foot">
-                    <button class="button is-link" ng-click="contactList.toggleModal('updateContactModal');">Save changes</button>
+                    <button class="button is-link" ng-click="contactList.saveEditedUser();contactList.toggleModal('updateContactModal');">Save changes</button>
                     <button class="button is-danger" ng-click="contactList.toggleModal('updateContactModal');">Cancel</button>
                 </footer>
             </div>
