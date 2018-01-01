@@ -192,8 +192,9 @@ angular.module('contactApp', [])
             return tempListOfContacts;
         };
 
-        contactList.toggleAddContactModal = function() {
-            var element = document.getElementById('addContactModal');
+
+        contactList.toggleModal = function(modalId) {
+            var element = document.getElementById(modalId);
             var elementClassAttribute = element.getAttribute('class');
             if (elementClassAttribute === 'modal') {
                 element.setAttribute('class', 'modal is-active');
@@ -202,14 +203,17 @@ angular.module('contactApp', [])
             }
         };
 
-        contactList.toggleAboutModal = function() {
-            var element = document.getElementById('aboutModal');
-            var elementClassAttribute = element.getAttribute('class');
-            if (elementClassAttribute === 'modal') {
-                element.setAttribute('class', 'modal is-active');
-            } else {
-                element.setAttribute('class', 'modal');
-            }
+        contactList.editUser = function(contact) {
+            contactList.updateName = contact.name;
+            contactList.updateAddress = contact.address;
+            contactList.updateEmail = contact.email;
+            contactList.updatePhone = contact.phone;
+            contactList.updateOther = contact.other;
+            contactList.toggleModal('updateContactModal');
         };
+
+        contactList.saveEditedUser = function() {
+            
+        }
 
     }]);

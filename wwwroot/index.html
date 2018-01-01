@@ -46,10 +46,10 @@
 
         <nav class="level">
             <p class="level-item has-text-centered">
-                <a class="link is-info" ng-click="contactList.toggleAddContactModal();">Add Contact</a>
+                <a class="link is-info" ng-click="contactList.toggleModal('addContactModal');">Add Contact</a>
             </p>
             <p class="level-item has-text-centered">
-                <a class="link is-info" ng-click="contactList.toggleAboutModal();">About</a>
+                <a class="link is-info" ng-click="contactList.toggleModal('aboutModal');">About</a>
             </p>
         </nav>
 
@@ -58,7 +58,7 @@
             <div class="modal-card">
                 <header class="modal-card-head">
                     <p class="modal-card-title">About Modal</p>
-                    <button class="delete" aria-label="close" ng-click="contactList.toggleAboutModal();"></button>
+                    <button class="delete" aria-label="close" ng-click="contactList.toggleModal('aboutModal');"></button>
                 </header>
                 <section class="modal-card-body">
                     <div class="content">
@@ -82,7 +82,7 @@
             <div class="modal-card">
                 <header class="modal-card-head">
                     <p class="modal-card-title">Place to add Contact</p>
-                    <button class="delete" aria-label="close" ng-click="contactList.toggleAddContactModal();"></button>
+                    <button class="delete" aria-label="close" ng-click="contactList.toggleModal('addContactModal');"></button>
                 </header>
                 <section class="modal-card-body">
                     <form ng-submit="contactList.AddContact();contactList.ClearAddContactFields();">
@@ -111,8 +111,36 @@
                     </form>
                 </section>
                 <footer class="modal-card-foot">
-                    <button class="button is-link" ng-click="contactList.AddContact();contactList.ClearAddContactFields();contactList.toggleAddContactModal();">Add Contact</button>
-                    <button class="button is-danger" ng-click="contactList.toggleAddContactModal();">Cancel</button>
+                    <button class="button is-link" ng-click="contactList.AddContact();contactList.ClearAddContactFields();contactList.toggleModal('addContactModal');">Add Contact</button>
+                    <button class="button is-danger" ng-click="contactList.toggleModal('addContactModal');">Cancel</button>
+                </footer>
+            </div>
+        </div>
+        <div id="updateContactModal" class="modal">
+            <div class="modal-background"></div>
+            <div class="modal-card">
+                <header class="modal-card-head">
+                    <p class="modal-card-title">Update User</p>
+                    <button class="delete" aria-label="close" ng-click="contactList.toggleModal('updateContactModal');"></button>
+                </header>
+                <section class="modal-card-body">
+                    <!-- Content ... -->
+                    <div class="field">
+                        <label class="label">Name:</label>
+                        <div class="control"><input type="text" ng-model="contactList.updateName"/></div>
+                        <label class="label">Address:</label>
+                        <div class="control"><input type="text" ng-model="contactList.updateAddress"/></div>
+                        <label class="label">Email:</label>
+                        <div class="control"><input type="text" ng-model="contactList.updateEmail"/></div>
+                        <label class="label">Phone:</label>
+                        <div class="control"><input type="text" ng-model="contactList.updatePhone"/></div>
+                        <label class="label">Other:</label>
+                        <div class="control"><input type="textarea" class="textarea" ng-model="contactList.updateOther"/></div>
+                    </div>
+                </section>
+                <footer class="modal-card-foot">
+                    <button class="button is-link" ng-click="contactList.toggleModal('updateContactModal');">Save changes</button>
+                    <button class="button is-danger" ng-click="contactList.toggleModal('updateContactModal');">Cancel</button>
                 </footer>
             </div>
         </div>
@@ -158,7 +186,8 @@
             </div>
             <div ng-repeat="contact in contactList.searchedContacts" class="columns is-mobile">
                 <div class="{{$even ? 'column' : 'column secondaryColor'}}">
-                    <p class="blackText">{{contact.name}}</p>
+                    <p class="blackText">
+                        <button class="button is-link" ng-click="contactList.editUser(contact);">Edit</button> {{contact.name}}</p>
                 </div>
                 <div class="{{$even ? 'column' : 'column secondaryColor'}}">
                     <p class="blackText">{{contact.address}}</p>
