@@ -37,6 +37,20 @@ namespace haibara.Migrations
 
                     b.ToTable("Contacts");
                 });
+
+            modelBuilder.Entity("UserInformation", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("HashedPassword");
+
+                    b.Property<string>("Username");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("UserInformations");
+                });
 #pragma warning restore 612, 618
         }
     }

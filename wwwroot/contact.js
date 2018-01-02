@@ -9,7 +9,7 @@ angular.module('contactApp', [])
 
         contactList.retrieveToken = function () {
             var requestBody = { "username": contactList.username, "password": contactList.password };
-            var requestTokenUrl = "http://localhost:5000/api/Authentication";
+            var requestTokenUrl = "http://localhost:5000/api/Authentication/RequestToken";
             $http.post(requestTokenUrl, requestBody)
                 .then(function (response) {
                     if (response.status === 200) {

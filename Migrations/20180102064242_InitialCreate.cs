@@ -24,12 +24,29 @@ namespace haibara.Migrations
                 {
                     table.PrimaryKey("PK_Contacts", x => x.Id);
                 });
+
+            migrationBuilder.CreateTable(
+                name: "UserInformations",
+                columns: table => new
+                {
+                    Id = table.Column<long>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    HashedPassword = table.Column<string>(nullable: true),
+                    Username = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserInformations", x => x.Id);
+                });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
                 name: "Contacts");
+
+            migrationBuilder.DropTable(
+                name: "UserInformations");
         }
     }
 }

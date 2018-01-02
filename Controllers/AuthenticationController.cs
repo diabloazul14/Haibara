@@ -11,7 +11,6 @@ using System.Linq;
 
 namespace haibara.Controllers
 {
-    [Route("api/[controller]")]
     public class AuthenticationController
     {
         private readonly HaibaraContext _context;
@@ -22,6 +21,7 @@ namespace haibara.Controllers
         }
 
         [AllowAnonymous]
+        [Route("api/[controller]/RequestToken")]
         [HttpPost]
         public IActionResult RequestToken([FromBody] TokenRequest request)
         {
@@ -52,21 +52,28 @@ namespace haibara.Controllers
             return new BadRequestObjectResult("Could not Determine Username/Password Combination");
         }
 
+        //[Authorize(AuthenticationSchemes = "Bearer")]
+        [Route("api/[controller]/AddUser")]
         [HttpPost]
-        {
-            IEnumerable<UserInformation> userInformations =  _context.UserInformations.AsEnumerable();
         public IActionResult AddUser([FromBody] UserCredentials userCredentials)
+        {
+            List<UserInformation> userInformations = _context.UserInformations.ToList();
             bool userNameExists = userInformations.Any(ui => ui.Username == userCredentials.Username);
             if (userNameExists)
             {
                 return new BadRequestObjectResult("Username Already Exists");
             }
-            else 
-                //Add the User straight                
+            else
             {
-                //Encrpyt the Password
+                string hashedPassword = BCrypt.BCryptHelper.HashPassword(userCredentials.Password, BCrypt.SaltRevision.Revision2A.ToString());
+                UserInformation userInformation = new UserInformation()
+                {
+                    Username = userCredentials.Username,
+                    HashedPassword = hashedPassword
+                };
+                _context.UserInformations.Add(userInformation);
                 _context.SaveChanges();
-                return new CreatedAtRouteResult("AuthenticationController", new { id = contact.Id }, contact);
+                return new CreatedAtRouteResult("AuthenticationController", userInformation);
             }
         }
 

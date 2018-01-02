@@ -10,7 +10,7 @@ using System;
 namespace haibara.Migrations
 {
     [DbContext(typeof(HaibaraContext))]
-    [Migration("20171201052628_InitialCreate")]
+    [Migration("20180102064242_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -37,6 +37,20 @@ namespace haibara.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Contacts");
+                });
+
+            modelBuilder.Entity("UserInformation", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("HashedPassword");
+
+                    b.Property<string>("Username");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("UserInformations");
                 });
 #pragma warning restore 612, 618
         }
