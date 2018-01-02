@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using System.IdentityModel.Tokens.Jwt;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace haibara.Controllers
 {
@@ -49,6 +50,24 @@ namespace haibara.Controllers
                 });
             }
             return new BadRequestObjectResult("Could not Determine Username/Password Combination");
+        }
+
+        [HttpPost]
+        {
+            IEnumerable<UserInformation> userInformations =  _context.UserInformations.AsEnumerable();
+        public IActionResult AddUser([FromBody] UserCredentials userCredentials)
+            bool userNameExists = userInformations.Any(ui => ui.Username == userCredentials.Username);
+            if (userNameExists)
+            {
+                return new BadRequestObjectResult("Username Already Exists");
+            }
+            else 
+                //Add the User straight                
+            {
+                //Encrpyt the Password
+                _context.SaveChanges();
+                return new CreatedAtRouteResult("AuthenticationController", new { id = contact.Id }, contact);
+            }
         }
 
     }

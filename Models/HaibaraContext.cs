@@ -9,5 +9,6 @@ namespace haibara.Models
 
         //List of Models to map via Entity Framework
         public DbSet<Contact> Contacts { get; set; }
+        public DbSet<UserInformation> UserInformations { get; set; }
     }
 }

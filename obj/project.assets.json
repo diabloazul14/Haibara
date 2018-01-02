@@ -2,6 +2,15 @@
   "version": 3,
   "targets": {
     ".NETCoreApp,Version=v2.0": {
+      "BCrypt-Core/2.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/netcoreapp2.0/BCrypt-Core.dll": {}
+        },
+        "runtime": {
+          "lib/netcoreapp2.0/BCrypt-Core.dll": {}
+        }
+      },
       "Libuv/1.10.0": {
         "type": "package",
         "dependencies": {
@@ -4750,6 +4759,16 @@
     }
   },
   "libraries": {
+    "BCrypt-Core/2.0.0": {
+      "sha512": "g6CJ6ixfOjyLkyuQIQn61Isb4ee+0Q0eqsNn0fHB+s5kbChNU9zETXafDD83SN+1eU/QWPSL5f2lTM0PG9mGVg==",
+      "type": "package",
+      "path": "bcrypt-core/2.0.0",
+      "files": [
+        "bcrypt-core.2.0.0.nupkg.sha512",
+        "bcrypt-core.nuspec",
+        "lib/netcoreapp2.0/BCrypt-Core.dll"
+      ]
+    },
     "Libuv/1.10.0": {
       "sha512": "GsCf4q+eyaI49rCPlgYxdxa1SQCysXFFdSJWdstrwxytg4+VPYLYrXD4AT2rjHVJ+UF7SSWX9CapWEYaU4ejVQ==",
       "type": "package",
@@ -12528,6 +12547,7 @@
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.0": [
+      "BCrypt-Core >= 2.0.0",
       "Microsoft.AspNetCore.All >= 2.0.0",
       "Microsoft.EntityFrameworkCore.Design >= 2.0.1",
       "Microsoft.EntityFrameworkCore.Sqlite >= 2.0.1",
@@ -12535,28 +12555,30 @@
     ]
   },
   "packageFolders": {
-    "/home/matthew/.nuget/packages/": {},
-    "/usr/share/dotnet/sdk/NuGetFallbackFolder": {}
+    "C:\\Users\\MKHan\\.nuget\\packages\\": {},
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/matthew/Projects/Haibara/haibara.csproj",
+      "projectUniqueName": "d:\\Projects\\Haibara\\haibara.csproj",
       "projectName": "haibara",
-      "projectPath": "/home/matthew/Projects/Haibara/haibara.csproj",
-      "packagesPath": "/home/matthew/.nuget/packages/",
-      "outputPath": "/home/matthew/Projects/Haibara/obj/",
+      "projectPath": "d:\\Projects\\Haibara\\haibara.csproj",
+      "packagesPath": "C:\\Users\\MKHan\\.nuget\\packages\\",
+      "outputPath": "d:\\Projects\\Haibara\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "/usr/share/dotnet/sdk/NuGetFallbackFolder"
+        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "/home/matthew/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\MKHan\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp2.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -12589,6 +12611,10 @@
           "Microsoft.EntityFrameworkCore.Sqlite": {
             "target": "Package",
             "version": "2.0.1"
+          },
+          "BCrypt-Core": {
+            "target": "Package",
+            "version": "2.0.0"
           }
         },
         "imports": [

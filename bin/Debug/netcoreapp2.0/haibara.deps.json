@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v2.0",
-    "signature": "8573ea8cf607f2341269ddb3ba6da8c7266c6322"
+    "signature": "c4c95ae0361e2d7634c030737199d996f9d6731f"
   },
   "compilationOptions": {
     "defines": [
@@ -23,6 +23,7 @@
     ".NETCoreApp,Version=v2.0": {
       "haibara/1.0.0": {
         "dependencies": {
+          "BCrypt-Core": "2.0.0",
           "Microsoft.AspNetCore.All": "2.0.0",
           "Microsoft.EntityFrameworkCore.Design": "2.0.1",
           "Microsoft.EntityFrameworkCore.Sqlite": "2.0.1",
@@ -33,6 +34,14 @@
         },
         "compile": {
           "haibara.dll": {}
+        }
+      },
+      "BCrypt-Core/2.0.0": {
+        "runtime": {
+          "lib/netcoreapp2.0/BCrypt-Core.dll": {}
+        },
+        "compile": {
+          "lib/netcoreapp2.0/BCrypt-Core.dll": {}
         }
       },
       "Libuv/1.10.0": {
@@ -3979,6 +3988,13 @@
       "type": "project",
       "serviceable": false,
       "sha512": ""
+    },
+    "BCrypt-Core/2.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-g6CJ6ixfOjyLkyuQIQn61Isb4ee+0Q0eqsNn0fHB+s5kbChNU9zETXafDD83SN+1eU/QWPSL5f2lTM0PG9mGVg==",
+      "path": "bcrypt-core/2.0.0",
+      "hashPath": "bcrypt-core.2.0.0.nupkg.sha512"
     },
     "Libuv/1.10.0": {
       "type": "package",
