@@ -25,34 +25,49 @@ namespace haibara.Controllers
         [HttpPost]
         public IActionResult RequestToken([FromBody] TokenRequest request)
         {
-            if (request.Username == "konata" && request.Password == "qwert123")
+            try
             {
-                var claims = new Claim[]
+                List<UserInformation> userInformations = _context.UserInformations.ToList();
+                string hashedPassword = userInformations.FirstOrDefault(ui => ui.Username.Equals(request.Username)).HashedPassword;
+                bool validPassword = BCrypt.BCryptHelper.CheckPassword(request.Password, hashedPassword);
+                if (validPassword)
                 {
+                    var claims = new Claim[]
+                    {
                     new Claim(ClaimTypes.Name, request.Username)
-                };
-                Dictionary<string, string> configurations = Configurations.ReturnConfigurations();
-                string securityKey = configurations["SecurityKey"];
-                SymmetricSecurityKey key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(securityKey));
-                SigningCredentials cred = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+                    };
+                    Dictionary<string, string> configurations = Configurations.ReturnConfigurations();
+                    string securityKey = configurations["SecurityKey"];
+                    SymmetricSecurityKey key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(securityKey));
+                    SigningCredentials cred = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
-                JwtSecurityToken token = new JwtSecurityToken(
-                    issuer: "localhost:5000",
-                    audience: "localhost:5000",
-                    claims: claims,
-                    expires: DateTime.Now.AddHours(12),
-                    signingCredentials: cred
-                );
+                    JwtSecurityToken token = new JwtSecurityToken(
+                        issuer: "localhost:5000",
+                        audience: "localhost:5000",
+                        claims: claims,
+                        expires: DateTime.Now.AddHours(12),
+                        signingCredentials: cred
+                    );
 
-                return new OkObjectResult(new
+                    return new OkObjectResult(new
+                    {
+                        token = new JwtSecurityTokenHandler().WriteToken(token)
+                    });
+                }
+                else
                 {
-                    token = new JwtSecurityTokenHandler().WriteToken(token)
-                });
+                    // return new NoContentResult();
+                    return new BadRequestResult();
+                }
             }
-            return new BadRequestObjectResult("Could not Determine Username/Password Combination");
+            catch (Exception ex)
+            {
+                string errorMessage = string.Format("{0} - {1}", ex.Message, ex.InnerException);
+                return new BadRequestObjectResult(errorMessage);
+            }
         }
 
-        //[Authorize(AuthenticationSchemes = "Bearer")]
+        [Authorize(AuthenticationSchemes = "Bearer")]
         [Route("api/[controller]/AddUser")]
         [HttpPost]
         public IActionResult AddUser([FromBody] UserCredentials userCredentials)
@@ -65,7 +80,9 @@ namespace haibara.Controllers
             }
             else
             {
-                string hashedPassword = BCrypt.BCryptHelper.HashPassword(userCredentials.Password, BCrypt.SaltRevision.Revision2A.ToString());
+                Dictionary<string, string> configurations = Configurations.ReturnConfigurations();
+                string salt = configurations["PasswordSalt"];
+                string hashedPassword = BCrypt.BCryptHelper.HashPassword(userCredentials.Password, salt);
                 UserInformation userInformation = new UserInformation()
                 {
                     Username = userCredentials.Username,

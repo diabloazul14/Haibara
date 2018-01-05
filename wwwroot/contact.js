@@ -11,14 +11,14 @@ angular.module('contactApp', [])
             var requestBody = { "username": contactList.username, "password": contactList.password };
             var requestTokenUrl = "http://localhost:5000/api/Authentication/RequestToken";
             $http.post(requestTokenUrl, requestBody)
-                .then(function (response) {
-                    if (response.status === 200) {
-                        contactList.JWT = response.data.token;
+                .then(function (successCallback) {
+                    if (successCallback.status === 200) {
+                        contactList.JWT = successCallback.data.token;
                         contactList.GetAllContacts();
                         contactList.showMainPage = true;
-                    } else {
-                        alert("Username or Password is Incorrect, please contact site admin.");
                     }
+                }, function (errorCallback) {
+                    alert("Username or Password is Incorrect, please contact site admin.");
                 });
         };
 
@@ -38,26 +38,22 @@ angular.module('contactApp', [])
             };
             $http.defaults.headers.common.Authorization = "Bearer " + contactList.JWT;
             $http.post(contactList.url, newContact)
-                .then(function (response) {
-                    if (response.status === 201) {
-                        $http.get(contactList.url)
-                            .then(function (getResponse) {
-                                console.log(getResponse);
-                                if (getResponse.status === 200) {
-                                    contactList.contacts = getResponse.data;
-                                    contactList.searchedContacts.push(newContact);
-                                    document.getElementById('name').value = "";
-                                    document.getElementById('address').value = "";
-                                    document.getElementById('email').value = "";
-                                    document.getElementById('phone').value = "";
-                                    document.getElementById('other').value = "";                                    
-                                }
-                            });
-                    } else {
-                        contactList.showMainPage = false;
-                        alert('Unable to save contact, please contact Matthew diabloazul14@gmail.com');
-                        console.log(response);
-                    }
+                .then(function (successCallback) {
+                    $http.get(contactList.url)
+                        .then(function (successCallback) {
+                            console.log(successCallback);
+                                contactList.contacts = successCallback.data;
+                                contactList.searchedContacts.push(newContact);
+                                document.getElementById('name').value = "";
+                                document.getElementById('address').value = "";
+                                document.getElementById('email').value = "";
+                                document.getElementById('phone').value = "";
+                                document.getElementById('other').value = "";
+                        }, function (errorCallback) {
+                            contactList.showMainPage = false;
+                            alert('Unable to save contact, please contact Matthew diabloazul14@gmail.com');
+                            console.log(response);
+                        });
                 });
         };
 
@@ -65,15 +61,13 @@ angular.module('contactApp', [])
             console.log('getAllContacts Called');
             $http.defaults.headers.common.Authorization = "Bearer " + contactList.JWT;
             $http.get(contactList.url)
-                .then(function (getResponse) {
-                    console.log(getResponse);
-                    if (getResponse.status === 200) {
-                        contactList.contacts = getResponse.data;
-                        contactList.searchedContacts = contactList.contacts;
-                    } else {
-                        contactList.showMainPage = false;
-                        alert("Couldn't retrieve Contacts, please contact Site Admin.");
-                    }
+                .then(function (successCallback) {
+                    console.log(successCallback);
+                    contactList.contacts = successCallback.data;
+                    contactList.searchedContacts = contactList.contacts;
+                }, function (errorCallback) {
+                    contactList.showMainPage = false;
+                    alert("Couldn't retrieve Contacts, please contact Site Admin.");
                 });
         };
 
@@ -85,12 +79,12 @@ angular.module('contactApp', [])
             document.getElementById('other').value = '';
         };
 
-        contactList.removeDuplicates = function(list) {
+        contactList.removeDuplicates = function (list) {
             var tempList = Array.from(new Set(list));
             return tempList;
         };
 
-        contactList.combineDuplicates = function(list1, list2) {
+        contactList.combineDuplicates = function (list1, list2) {
             var tempList = [];
             list1.forEach(function (element) {
                 list2.forEach(function (innerElement) {
@@ -114,9 +108,9 @@ angular.module('contactApp', [])
                 return list2;
             } else if (list1.length !== 0 && list2.length === 0) {
                 return list1;
-            } else {                
+            } else {
                 var tempList = contactList.combineDuplicates(list1, list2);
-                return tempList;    
+                return tempList;
             }
         }
 
@@ -193,7 +187,7 @@ angular.module('contactApp', [])
         };
 
 
-        contactList.toggleModal = function(modalId) {
+        contactList.toggleModal = function (modalId) {
             var element = document.getElementById(modalId);
             var elementClassAttribute = element.getAttribute('class');
             if (elementClassAttribute === 'modal') {
@@ -202,10 +196,10 @@ angular.module('contactApp', [])
                 element.setAttribute('class', 'modal');
             }
         };
-        
+
         contactList.contactBeingEditedId = null;
-        
-        contactList.editUser = function(contact) {            
+
+        contactList.editUser = function (contact) {
             contactList.updateName = contact.name;
             contactList.updateAddress = contact.address;
             contactList.updateEmail = contact.email;
@@ -216,24 +210,22 @@ angular.module('contactApp', [])
         };
 
 
-        contactList.saveEditedUser = function() {
+        contactList.saveEditedUser = function () {
             var editedContact = {
-                'name':    contactList.updateName,
+                'name': contactList.updateName,
                 'address': contactList.updateAddress,
-                'email':   contactList.updateEmail,
-                'phone':   contactList.updatePhone,
-                'other':   contactList.updateOther
+                'email': contactList.updateEmail,
+                'phone': contactList.updatePhone,
+                'other': contactList.updateOther
             };
             $http.defaults.headers.common.Authorization = "Bearer " + contactList.JWT;
             $http.put(contactList.url + "/" + contactList.contactBeingEditedId, editedContact)
-                .then(function (response) {
-                    if (response.status === 204) {
-                        contactList.GetAllContacts();
-                    } else {
-                        alert("User couldn't be edited, please contact site admin.");
-                    }
-                    contactList.contactBeingEditedId = null;
+                .then(function (successCallback) {
+                    contactList.GetAllContacts();
+                }, function (errorCallback) {
+                    alert("User couldn't be edited, please contact site admin.");
                 });
+            contactList.contactBeingEditedId = null;
         };
 
     }]);
